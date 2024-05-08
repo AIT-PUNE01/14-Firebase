@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication</title>
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-database.js"></script>
+    <script>
+        // Initialize Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyDQ9KQFxqzItyAy2N0TrjQB5WCNpVg_T1A",
+            authDomain: "fir-assgn-eca56.firebaseapp.com",
+            projectId: "fir-assgn-eca56",
+            storageBucket: "fir-assgn-eca56.appspot.com",
+            messagingSenderId: "766731541223",
+            appId: "1:766731541223:web:49c13726c1f60b2e812042",
+            measurementId: "G-L2YSMF8ZEY"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Function to handle user registration
+        function register() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in
+                var user = userCredential.user;
+                // Store user data in Firebase Realtime Database
+                firebase.database().ref('users/' + user.uid).set({
+                    email: email
+                }).then(() => {
+                    console.log('User data stored successfully.');
+                }).catch((error) => {
+                    console.error('Error storing user data:', error);
+                });
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // Handle errors
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <button type="button" onclick="register()">Register</button>
+    </form>
+</body>
+</html>
