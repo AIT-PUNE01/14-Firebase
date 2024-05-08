@@ -1,0 +1,4 @@
+Firebase is a platform developed by Google that offers a wide range of tools and services for building and running web and mobile applications.
+Firebase provides a NoSQL cloud database that allows developers to store and sync data in realtime between clients
+Firebase Authentication offers simple and secure authentication using email/password, phone number, social login
+Firebase Hosting provides fast and secure hosting for web applications.
